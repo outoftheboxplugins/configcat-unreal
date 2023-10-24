@@ -6,6 +6,26 @@ on:
       - 'v*'
 
 jobs:
-  plugin-cd:
-    uses:  outoftheboxplugins/BuildMachines/.github/workflows/package-plugin.yml@master
-    secrets: inherit
+  publish-engine-plugin:
+    runs-on: ubuntu-latest
+    name: 📦 Package Plugin
+    steps:
+      - uses: actions/checkout@v3
+      
+      - uses: jossef/action-set-json-field@v2
+        with:
+          file: "${{ inputs.plugin_name }}.uplugin"
+          field: VersionName
+          value: "${{ github.ref_name }}"
+
+      - name: Archive files
+        run: |
+          zip -r archive.zip . -x LICENSE
+
+      - uses: ncipollo/release-action@v1
+        with:
+          artifacts: "archive.zip"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          generateReleaseNotes: true
+          tag: ${{ github.ref }}
+          name: "${{ github.ref_name }}"
