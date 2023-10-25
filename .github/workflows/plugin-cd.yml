@@ -84,8 +84,6 @@ jobs:
       - name: Install via vcpkg
         if: always()
         run: |
-          cat /Users/runner/work/configcat-unreal/configcat-unreal/build/vcpkg/buildtrees/curl/config-arm64-ios-dbg-CMakeCache.txt.log
-          cat /Users/runner/work/configcat-unreal/configcat-unreal/build/vcpkg/buildtrees/curl/config-arm64-ios-rel-CMakeCache.txt.log
           cat /Users/runner/work/configcat-unreal/configcat-unreal/build/vcpkg/buildtrees/curl/config-arm64-ios-out.log
 
       - uses: actions/upload-artifact@v3
