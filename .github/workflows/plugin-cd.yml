@@ -86,6 +86,8 @@ jobs:
         run: |
           cat /Users/runner/work/configcat-unreal/configcat-unreal/build/vcpkg/buildtrees/curl/config-arm64-ios-out.log
 
+          cat /Users/runner/work/configcat-unreal/configcat-unreal/build/vcpkg/installed/vcpkg/issue_body.md
+
       - uses: actions/upload-artifact@v3
         with:
           name: iOS
