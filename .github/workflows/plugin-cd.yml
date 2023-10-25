@@ -88,6 +88,8 @@ jobs:
 
           cat /Users/runner/work/configcat-unreal/configcat-unreal/build/vcpkg/installed/vcpkg/issue_body.md
 
+          cat /Users/runner/work/configcat-unreal/configcat-unreal/build/vcpkg/buildtrees/curl/arm64-ios-rel/TryRunResults.cmake
+
       - uses: actions/upload-artifact@v3
         with:
           name: iOS
