@@ -60,7 +60,7 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
-          name: MacOs
+          name: MacOS
           path: |
             ./build/vcpkg/installed/*/lib/libconfigcat.a
             ./build/vcpkg/installed/*/lib/libcpr.a
