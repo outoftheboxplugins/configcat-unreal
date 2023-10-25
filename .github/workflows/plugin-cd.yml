@@ -146,11 +146,11 @@ jobs:
 
       - name: Archive files
         run: |
-          zip -r archive.zip . -x LICENSE
+          zip -r ConfigCat.zip . -x LICENSE
 
       - uses: ncipollo/release-action@v1
         with:
-          artifacts: "archive.zip"
+          artifacts: ConfigCat.zip
           token: ${{ secrets.GITHUB_TOKEN }}
           generateReleaseNotes: true
           tag: ${{ github.ref }}
