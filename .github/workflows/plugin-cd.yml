@@ -77,6 +77,8 @@ jobs:
 
       - name: Install via vcpkg
         run: |
+          brew install pkg-config
+
           git clone https://github.com/microsoft/vcpkg build/vcpkg
           ./build/vcpkg/bootstrap-vcpkg.sh
           ./build/vcpkg/vcpkg install configcat --triplet arm64-ios
