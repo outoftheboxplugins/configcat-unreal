@@ -81,15 +81,6 @@ jobs:
           ./build/vcpkg/bootstrap-vcpkg.sh
           ./build/vcpkg/vcpkg install configcat --triplet arm64-ios-unreal --overlay-triplets "$GITHUB_WORKSPACE/Extras/triplets"
 
-      - name: Install via vcpkg
-        if: always()
-        run: |
-          cat /Users/runner/work/configcat-unreal/configcat-unreal/build/vcpkg/buildtrees/curl/config-arm64-ios-out.log
-
-          cat /Users/runner/work/configcat-unreal/configcat-unreal/build/vcpkg/installed/vcpkg/issue_body.md
-
-          cat /Users/runner/work/configcat-unreal/configcat-unreal/build/vcpkg/buildtrees/curl/arm64-ios-rel/TryRunResults.cmake
-
       - uses: actions/upload-artifact@v3
         with:
           name: iOS
