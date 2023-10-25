@@ -20,7 +20,7 @@ jobs:
       
       - uses: jossef/action-set-json-field@v2.1
         with:
-          file: "${{ github.workspace }}/ConfigCat.uplugin"
+          file: "${{ github.workspace }}/ConfigCatsdsdfsdf.uplugin"
           field: VersionName
           value: "${{ github.ref_name }}"
 
