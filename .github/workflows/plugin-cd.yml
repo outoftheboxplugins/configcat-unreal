@@ -81,6 +81,9 @@ jobs:
           ./build/vcpkg/bootstrap-vcpkg.sh
           ./build/vcpkg/vcpkg install configcat --triplet arm64-ios
 
+      - name: Install via vcpkg
+        if: always()
+        run: |
           cat /Users/runner/work/configcat-unreal/configcat-unreal/build/vcpkg/buildtrees/curl/config-arm64-ios-dbg-CMakeCache.txt.log
           cat /Users/runner/work/configcat-unreal/configcat-unreal/build/vcpkg/buildtrees/curl/config-arm64-ios-rel-CMakeCache.txt.log
           cat /Users/runner/work/configcat-unreal/configcat-unreal/build/vcpkg/buildtrees/curl/config-arm64-ios-out.log
