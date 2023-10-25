@@ -15,7 +15,7 @@ jobs:
       - name: Install via vcpkg
         run: |
           ls -l
-          echo "${{ GITHUB_WORKSPACE }}/ConfigCat.uplugin"
+          echo "env:GITHUB_WORKSPACE"
       
       - uses: jossef/action-set-json-field@v2
         with:
