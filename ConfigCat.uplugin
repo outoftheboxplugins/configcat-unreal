@@ -1,31 +1,28 @@
 {
 	"FileVersion": 3,
-	"VersionName": "1.0",
+	"VersionName": "0.1",
 	"EngineVersion": "5.3",
-	"FriendlyName": "QuickActions",
-	"Description": "Adds productivity tools to developers such as spotlight search, extended viewport options and much more.",
-	"Category": "Editor",
-	"CreatedBy": "Out-of-the-Box Plugins",
-	"CreatedByURL": "https://outofthebox-plugins.com",
-	"DocsURL": "https://quickactions.outofthebox-plugins.com/",
-	"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/01e9d950f52648ee96e9b01711df283e",
-	"SupportURL": "https://github.com/outoftheboxplugins/QuickActions-docs/issues",
-	"EnabledByDefault": true,
+	"FriendlyName": "ConfigCat",
+	"Description": "ConfigCat is a hosted service for feature flag and configuration management. It lets you decouple feature releases from code deployments.",
+	"Category": "FeatureFlags",
+	"CreatedBy": "ConfigCat",
+	"CreatedByURL": "https://configcat.com/",
+	"DocsURL": "https://configcat.com/docs/sdk-reference/unreal/",
+	"MarketplaceURL": "",
+	"SupportURL": "https://configcat.com/slack/",
+	"EnabledByDefault": false,
 	"CanContainContent": false,
 	"Modules": 
 	[
 		{
-			"Name": "QuickMenu",
+			"Name": "ConfigCat",
+			"Type": "Runtime",
+			"LoadingPhase": "PreDefault",
+		},
+		{
+			"Name": "ConfigCatEditor",
 			"Type": "Editor",
 			"LoadingPhase": "Default",
-			"WhitelistPlatforms": [ "Win64", "Mac", "Linux"  ]
-		}
-	],
-	"Plugins": 
-	[
-		{
-			"Name": "GeometryCollectionPlugin",
-			"Enabled": true
 		}
 	]
 }
