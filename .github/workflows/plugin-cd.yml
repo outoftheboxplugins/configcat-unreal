@@ -28,7 +28,6 @@ jobs:
 
   build-android:
     runs-on: windows-latest
-    if: false
 
     steps:
       - uses: actions/checkout@v2
@@ -49,7 +48,6 @@ jobs:
 
   build-macos:
     runs-on: macos-latest
-    if: false
 
     steps:
       - uses: actions/checkout@v2
@@ -70,7 +68,6 @@ jobs:
 
   build-ios:
     runs-on: macos-latest
-    if: true
 
     steps:
       - uses: actions/checkout@v2
@@ -91,7 +88,6 @@ jobs:
 
   build-linux:
     runs-on: ubuntu-latest
-    if: false
 
     steps:
       - uses: actions/checkout@v2
@@ -143,6 +139,26 @@ jobs:
         with:
           name: Win64
           path: Source/ThirdParty/ConfigCatCppSDK/Binaries/Win64
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: Android
+          path: Source/ThirdParty/ConfigCatCppSDK/Binaries/Android
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: MacOS
+          path: Source/ThirdParty/ConfigCatCppSDK/Binaries/MacOS
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: iOS
+          path: Source/ThirdParty/ConfigCatCppSDK/Binaries/iOS
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: Linux
+          path: Source/ThirdParty/ConfigCatCppSDK/Binaries/Linux
 
       - name: Archive files
         run: |
