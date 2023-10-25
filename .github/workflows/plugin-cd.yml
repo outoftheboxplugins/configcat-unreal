@@ -12,15 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install via vcpkg
-        run: |
-          pwd
-          ls -l
-          echo "${{ github.workspace }}"
-      
       - uses: jossef/action-set-json-field@v2.1
         with:
-          file: "ConfigCat.uplugin"
+          file: ConfigCat.uplugin
           field: VersionName
           value: "${{ github.ref_name }}"
 
