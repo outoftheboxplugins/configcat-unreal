@@ -17,12 +17,12 @@
 		{
 			"Name": "ConfigCat",
 			"Type": "Runtime",
-			"LoadingPhase": "PreDefault",
+			"LoadingPhase": "PreDefault"
 		},
 		{
 			"Name": "ConfigCatEditor",
 			"Type": "Editor",
-			"LoadingPhase": "Default",
+			"LoadingPhase": "Default"
 		}
 	]
 }
