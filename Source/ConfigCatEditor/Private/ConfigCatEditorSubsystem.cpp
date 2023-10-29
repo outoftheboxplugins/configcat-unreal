@@ -26,7 +26,7 @@ void UConfigCatEditorSubsystem::EnsureContentIsPackaged()
 	if (!bContainsPath)
 	{
 		ProjectPackagingSettings->DirectoriesToAlwaysStageAsNonUFS.Add(ConfigCatContentFolder);
-		ProjectPackagingSettings->SaveConfig(CPF_Config, *ProjectPackagingSettings->GetDefaultConfigFilename());
+		ProjectPackagingSettings->TryUpdateDefaultConfigFile();
 
 		UE_LOG(LogConfigCat, Display, TEXT("ConfigCat folder was added to Additional Non-Asset Directories To Copy"));
 	}
