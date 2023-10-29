@@ -2,12 +2,11 @@
 
 #include "ConfigCatEditorSubsystem.h"
 
+#include <Interfaces/IPluginManager.h>
 #include <Settings/ProjectPackagingSettings.h>
 
 #include "ConfigCat.h"
 #include "ConfigCatLog.h"
-
-#include <Interfaces/IPluginManager.h>
 
 
 void UConfigCatEditorSubsystem::EnsureContentIsPackaged()
@@ -27,7 +26,7 @@ void UConfigCatEditorSubsystem::EnsureContentIsPackaged()
 	if (!bContainsPath)
 	{
 		ProjectPackagingSettings->DirectoriesToAlwaysStageAsNonUFS.Add(ConfigCatContentFolder);
-		ProjectPackagingSettings->SaveConfig();
+		ProjectPackagingSettings->SaveConfig(CPF_Config, *ProjectPackagingSettings->GetDefaultConfigFilename());
 
 		UE_LOG(LogConfigCat, Display, TEXT("ConfigCat folder was added to Additional Non-Asset Directories To Copy"));
 	}
@@ -42,7 +41,7 @@ void UConfigCatEditorSubsystem::CopyLatestSslCertificate()
 	IPlatformFile& PlatformFile = FPlatformFileManager::Get().GetPlatformFile();
 	const FString ConfigCatContent = FPaths::ConvertRelativePathToFull(FConfigCatModule::GetContentFolder());
 	const bool bFolderCreated = PlatformFile.CreateDirectoryTree(*ConfigCatContent);
-	if(!bFolderCreated)
+	if (!bFolderCreated)
 	{
 		UE_LOG(LogConfigCat, Warning, TEXT("Failed to create ConfigCat content folder."));
 		return;
@@ -53,7 +52,7 @@ void UConfigCatEditorSubsystem::CopyLatestSslCertificate()
 
 	const FString ContentCertificate = ConfigCatContent + TEXT("/globalsign-root-ca.pem");
 	const bool bCopySuccess = PlatformFile.CopyFile(*ContentCertificate, *PluginCertificate);
-	if(!bCopySuccess)
+	if (!bCopySuccess)
 	{
 		UE_LOG(LogConfigCat, Warning, TEXT("Failed to copy SSL certificate to ConfigCat content folder."))
 	}
