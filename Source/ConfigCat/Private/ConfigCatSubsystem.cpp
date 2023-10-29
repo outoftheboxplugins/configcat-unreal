@@ -415,16 +415,16 @@ void UConfigCatSubsystem::SetupClientSslOptions(ConfigCatOptions& Options)
 	}
 
 #if PLATFORM_LINUX || PLATFORM_ANDROID
-	const FString CertificateFile = FPaths::ProjectContentDir() + TEXT("/globalsign-root-ca.pem");
+	FString CertificateFile = FConfigCatModule::GetContentFolder() + TEXT("/globalsign-root-ca.pem");
 	FString CertificateContent = TEXT(""); 
 	if (FFileHelper::LoadFileToString(CertificateContent, *CertificateFile))
 	{
-		UE_LOG(LogConfig, Log, TEXT("Certificate from %s will be used for SSL"), *CertificateFile);
+		UE_LOG(LogConfigCat, Display, TEXT("Certificate from %s will be used for SSL"), *CertificateFile);
 		Options.sslOptions->caBuffer = TCHAR_TO_UTF8(*CertificateContent);
 	}
 	else
 	{
-		UE_LOG(LogConfig, Error, TEXT("Failed to read certificate from %s"), *CertificateFile);
+		UE_LOG(LogConfigCat, Error, TEXT("Failed to read certificate from %s"), *CertificateFile);
 	}
 #endif
 }
@@ -454,7 +454,7 @@ void UConfigCatSubsystem::SetupClientOverrides(ConfigCatOptions& Options)
 	else if(ConfigCatSettings->OverrideMode == EOverrideMode::Map)
 	{
 		//TODO: This would require delayed initialization or static delegates just to bind this + create a config in blueprints is quiet horrible.
-		UE_LOG(LogConfig, Error, TEXT("Programatically overriding with a map flag is currently not supported."));
+		UE_LOG(LogConfigCat, Error, TEXT("Programatically overriding with a map flag is currently not supported."));
 		//std::unordered_map<std::string, Value> OverrideFlags;
 		//Options.flagOverrides = std::make_shared<MapFlagOverrides>(OverrideFlags, Behaviour);
 	}
