@@ -18,8 +18,8 @@
 namespace configcat {
 
 struct SslOptions {
-    std::vector<std::string> extraSslCertificates;
     std::optional<bool> verifySsl;
+    std::vector<std::string> extraSslCertificates;
 };
 
 // Hooks for events sent by `ConfigCatClient`.

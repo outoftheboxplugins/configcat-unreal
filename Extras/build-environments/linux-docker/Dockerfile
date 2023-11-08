@@ -4,6 +4,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y sudo build-essential git zip cmake curl unzip tar vim clang pkg-config libc++-dev
 
+COPY ./patches /patches
+COPY ./scripts /scripts
+COPY ./triplets /triplets
+
 ENV CC=clang
 ENV CXX=clang++
 

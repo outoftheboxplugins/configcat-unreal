@@ -14,6 +14,7 @@
 #include "ConfigCatLog.h"
 #include "ConfigCatLogger.h"
 #include "ConfigCatSettings.h"
+#include "Misc/LocalTimestampDirectoryVisitor.h"
 #include "Wrapper/ConfigCatEvaluationDetails.h"
 #include "Wrapper/ConfigCatUser.h"
 #include "Wrapper/ConfigCatValue.h"
@@ -414,17 +415,45 @@ void UConfigCatSubsystem::SetupClientSslOptions(ConfigCatOptions& Options)
 		Options.sslOptions->verifySsl = {bVerifyPeer};
 	}
 
-#if PLATFORM_LINUX || PLATFORM_ANDROID
-	FString CertificateFile = FConfigCatModule::GetContentFolder() + TEXT("/globalsign-root-ca.pem");
-	FString CertificateContent = TEXT("");
-	if (FFileHelper::LoadFileToString(CertificateContent, *CertificateFile))
+	if (FParse::Param(FCommandLine::Get(), TEXT("NoCerts")))
 	{
-		UE_LOG(LogConfigCat, Display, TEXT("Certificate from %s will be used for SSL"), *CertificateFile);
-		Options.sslOptions->caBuffer = TCHAR_TO_UTF8(*CertificateContent);
+		return;
 	}
-	else
+
+	if (FParse::Param(FCommandLine::Get(), TEXT("WrongCerts")))
 	{
-		UE_LOG(LogConfigCat, Error, TEXT("Failed to read certificate from %s"), *CertificateFile);
+		Options.sslOptions->extraSslCertificates.push_back("this/is/wrong/path.txt");
+		Options.sslOptions->extraSslCertificates.push_back("this/is/wrong/pathtoo.txr");
+		Options.sslOptions->extraSslCertificates.push_back("this/is/wrong/pathaswell.txt");
+		Options.sslOptions->extraSslCertificates.push_back("this/is/a/folder");
+		Options.sslOptions->extraSslCertificates.push_back("this/is/a/folder/too/");
+		return;
+	}
+
+#if PLATFORM_UNIX
+	// Mirroring FUnixPlatformSslCertificateManager::BuildRootCertificateArray
+	static const TCHAR* KnownBundlePaths[] = {
+		TEXT("/etc/pki/tls/certs/ca-bundle.crt"),
+		TEXT("/etc/ssl/certs/ca-certificates.crt"),
+		TEXT("/etc/ssl/ca-bundle.pem"),
+	};
+
+	for (const TCHAR* CurrentBundle : KnownBundlePaths)
+	{
+		Options.sslOptions->extraSslCertificates.push_back(TCHAR_TO_UTF8(CurrentBundle));
+	}
+#endif
+
+#if PLATFORM_ANDROID
+	// Mirroring FAndroidPlatformSslCertificateManager::BuildRootCertificateArray
+	TArray<FString> DirectoriesToIgnoreAndNotRecurse;
+	FLocalTimestampDirectoryVisitor Visitor(FPlatformFileManager::Get().GetPlatformFile(), DirectoriesToIgnoreAndNotRecurse, DirectoriesToIgnoreAndNotRecurse, false);
+	IFileManager::Get().IterateDirectory(TEXT("/system/etc/security/cacerts"), Visitor);
+
+	for (const TPair<FString, FDateTime>& FileTimePair : Visitor.FileTimes)
+	{
+		const FString& CertFilename = FileTimePair.Key;
+		Options.sslOptions->extraSslCertificates.push_back(TCHAR_TO_UTF8(*CertFilename));
 	}
 #endif
 }
