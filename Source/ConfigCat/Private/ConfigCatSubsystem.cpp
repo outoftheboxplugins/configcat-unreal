@@ -287,15 +287,15 @@ void UConfigCatSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 
 	switch (ConfigCatSettings->PollingMode)
 	{
-		case EPollingMode::Auto:
-			Options.pollingMode = PollingMode::autoPoll(ConfigCatSettings->AutoPollInterval, ConfigCatSettings->MaxInitWaitTime);
-			break;
-		case EPollingMode::LazyLoad:
-			Options.pollingMode = PollingMode::lazyLoad(ConfigCatSettings->CacheRefreshInterval);
-			break;
-		case EPollingMode::ManualPoll:
-			Options.pollingMode = PollingMode::manualPoll();
-			break;
+	case EPollingMode::Auto:
+		Options.pollingMode = PollingMode::autoPoll(ConfigCatSettings->AutoPollInterval, ConfigCatSettings->MaxInitWaitTime);
+		break;
+	case EPollingMode::LazyLoad:
+		Options.pollingMode = PollingMode::lazyLoad(ConfigCatSettings->CacheRefreshInterval);
+		break;
+	case EPollingMode::ManualPoll:
+		Options.pollingMode = PollingMode::manualPoll();
+		break;
 	}
 
 	for (const TTuple<FString, FString>& Proxy : ConfigCatSettings->Proxies)
@@ -416,7 +416,7 @@ void UConfigCatSubsystem::SetupClientSslOptions(ConfigCatOptions& Options)
 
 #if PLATFORM_LINUX || PLATFORM_ANDROID
 	FString CertificateFile = FConfigCatModule::GetContentFolder() + TEXT("/globalsign-root-ca.pem");
-	FString CertificateContent = TEXT(""); 
+	FString CertificateContent = TEXT("");
 	if (FFileHelper::LoadFileToString(CertificateContent, *CertificateFile))
 	{
 		UE_LOG(LogConfigCat, Display, TEXT("Certificate from %s will be used for SSL"), *CertificateFile);
@@ -436,26 +436,29 @@ void UConfigCatSubsystem::SetupClientOverrides(ConfigCatOptions& Options)
 	{
 		switch (ConfigCatSettings->OverrideBehaviour)
 		{
-		case EOverrideBehaviour::LocalOnly: return LocalOnly;
-		case EOverrideBehaviour::LocalOverRemote:  return LocalOverRemote;
-		case EOverrideBehaviour::RemoteOverLocal: return RemoteOverLocal;
+		case EOverrideBehaviour::LocalOnly:
+			return LocalOnly;
+		case EOverrideBehaviour::LocalOverRemote:
+			return LocalOverRemote;
+		case EOverrideBehaviour::RemoteOverLocal:
+			return RemoteOverLocal;
 		}
 
 		checkNoEntry();
 		return RemoteOverLocal;
 	}();
 
-	if(ConfigCatSettings->OverrideMode == EOverrideMode::File)
+	if (ConfigCatSettings->OverrideMode == EOverrideMode::File)
 	{
 		const FString FlagsFile = FConfigCatModule::GetContentFolder() + TEXT("/flags.json");
-		std::string FlagsFilePath = TCHAR_TO_UTF8(*FlagsFile); 
+		std::string FlagsFilePath = TCHAR_TO_UTF8(*FlagsFile);
 		Options.flagOverrides = std::make_shared<FileFlagOverrides>(FlagsFilePath, Behaviour);
 	}
-	else if(ConfigCatSettings->OverrideMode == EOverrideMode::Map)
+	else if (ConfigCatSettings->OverrideMode == EOverrideMode::Map)
 	{
-		//TODO: This would require delayed initialization or static delegates just to bind this + create a config in blueprints is quiet horrible.
+		// TODO: This would require delayed initialization or static delegates just to bind this + create a config in blueprints is quiet horrible.
 		UE_LOG(LogConfigCat, Error, TEXT("Programatically overriding with a map flag is currently not supported."));
-		//std::unordered_map<std::string, Value> OverrideFlags;
-		//Options.flagOverrides = std::make_shared<MapFlagOverrides>(OverrideFlags, Behaviour);
+		// std::unordered_map<std::string, Value> OverrideFlags;
+		// Options.flagOverrides = std::make_shared<MapFlagOverrides>(OverrideFlags, Behaviour);
 	}
 }
