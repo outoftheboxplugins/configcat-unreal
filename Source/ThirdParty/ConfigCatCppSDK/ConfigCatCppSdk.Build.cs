@@ -47,7 +47,7 @@ public class ConfigCatCppSdk : ModuleRules
 		}
 		else if(Target.Platform == UnrealTargetPlatform.IOS)
 		{
-			string Folder = Path.Combine(ModuleDirectory, "Binaries", "iOS", "arm64-ios");
+			string Folder = Path.Combine(ModuleDirectory, "Binaries", "iOS", "arm64-ios-unreal");
 			AddPrecompiledLibraries(Folder, "*.a");
 		}
 	}
