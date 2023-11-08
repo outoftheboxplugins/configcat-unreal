@@ -411,7 +411,7 @@ void UConfigCatSubsystem::SetupClientSslOptions(ConfigCatOptions& Options)
 	bool bVerifyPeer = true;
 	if (GConfig->GetBool(TEXT("/Script/Engine.NetworkSettings"), TEXT("n.VerifyPeer"), bVerifyPeer, GEngineIni))
 	{
-		Options.sslOptions->verifySSL = {bVerifyPeer};
+		Options.sslOptions->verifySsl = {bVerifyPeer};
 	}
 
 #if PLATFORM_LINUX || PLATFORM_ANDROID
