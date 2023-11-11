@@ -12,9 +12,10 @@ public class ConfigCatCppSdk : ModuleRules
 	{
 		Type = ModuleType.External;
 
-		AddEngineThirdPartyPrivateStaticDependencies(Target, "libcurl");
-		AddEngineThirdPartyPrivateStaticDependencies(Target, "OpenSSL");
-		AddEngineThirdPartyPrivateStaticDependencies(Target, "nghttp2");
+		// TODO: This should only be linked on platforms who run libcurl
+		//AddEngineThirdPartyPrivateStaticDependencies(Target, "libcurl");
+		//AddEngineThirdPartyPrivateStaticDependencies(Target, "OpenSSL");
+		//AddEngineThirdPartyPrivateStaticDependencies(Target, "nghttp2");
 
 		if (Target.Platform == UnrealTargetPlatform.Win64)
 		{
@@ -22,7 +23,10 @@ public class ConfigCatCppSdk : ModuleRules
 			AddPrecompiledLibraries(Folder, "*.lib");
 		}
 		else if (Target.Platform == UnrealTargetPlatform.Mac)
-		{
+		{ 
+			PublicFrameworks.Add("Security");
+			PublicFrameworks.Add("SystemConfiguration");
+
 			if(Target.Architecture == UnrealArch.Arm64)
 			{
 				//TODO: Change to match other naming convention when GitHub adds arm-64 macos runners
