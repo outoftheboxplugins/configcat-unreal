@@ -14,6 +14,7 @@
 #include "ConfigCatLog.h"
 #include "ConfigCatLogger.h"
 #include "ConfigCatSettings.h"
+#include "HAL/FileManager.h"
 #include "HAL/PlatformFileManager.h"
 #include "Misc/LocalTimestampDirectoryVisitor.h"
 #include "Wrapper/ConfigCatEvaluationDetails.h"
