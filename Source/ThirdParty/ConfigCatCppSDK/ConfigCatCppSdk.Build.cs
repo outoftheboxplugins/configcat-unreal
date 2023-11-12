@@ -12,10 +12,7 @@ public class ConfigCatCppSdk : ModuleRules
 	{
 		Type = ModuleType.External;
 
-		// TODO: This should only be linked on platforms who run libcurl
-		//AddEngineThirdPartyPrivateStaticDependencies(Target, "libcurl");
 		AddEngineThirdPartyPrivateStaticDependencies(Target, "OpenSSL");
-		//AddEngineThirdPartyPrivateStaticDependencies(Target, "nghttp2");
 
 		if (Target.Platform == UnrealTargetPlatform.Win64)
 		{

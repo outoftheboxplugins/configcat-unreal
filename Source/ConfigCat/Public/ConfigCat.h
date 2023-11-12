@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "Modules/ModuleManager.h"
+#include <Modules/ModuleManager.h>
 
 /**
  * @brief ConfigCat module brings remote feature flag and configuration management in Unreal Engine

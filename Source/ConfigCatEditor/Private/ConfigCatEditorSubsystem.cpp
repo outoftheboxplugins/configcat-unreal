@@ -2,12 +2,10 @@
 
 #include "ConfigCatEditorSubsystem.h"
 
-#include <Interfaces/IPluginManager.h>
 #include <Settings/ProjectPackagingSettings.h>
 
 #include "ConfigCat.h"
 #include "ConfigCatLog.h"
-
 
 void UConfigCatEditorSubsystem::EnsureContentIsPackaged()
 {

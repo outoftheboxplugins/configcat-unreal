@@ -4,7 +4,6 @@
 
 #include <ConfigCatCppSDK/Include/config.h>
 
-#include "Wrapper/ConfigCatRolloutPercentageItem.h"
 #include "Wrapper/ConfigCatValue.h"
 
 FConfigCatRolloutRule::FConfigCatRolloutRule(const configcat::RolloutRule& InRule)
