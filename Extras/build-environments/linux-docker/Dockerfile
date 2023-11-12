@@ -17,5 +17,5 @@ RUN git clone https://github.com/Microsoft/vcpkg.git
 WORKDIR /home/vcpkg
 RUN ./bootstrap-vcpkg.sh
 
-# ./vcpkg install configcat --triplet=x64-linux-unreal --editable
+# ./vcpkg install configcat --editable --triplet x64-linux-unreal --overlay-triplets "/triplets"
 # ./vcpkg remove configcat:x64-linux-unreal
