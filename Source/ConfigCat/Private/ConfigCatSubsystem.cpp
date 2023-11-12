@@ -19,6 +19,10 @@
 #include "Wrapper/ConfigCatUser.h"
 #include "Wrapper/ConfigCatValue.h"
 
+#if PLATFORM_IOS && !FORCE_ANSI_ALLOCATOR
+#error "ConfigCat for iOS currently requires "FORCE_ANSI_ALLOCATOR=1" inside your PROJECTNAME.Target.cs"
+#endif
+
 using namespace configcat;
 
 namespace
