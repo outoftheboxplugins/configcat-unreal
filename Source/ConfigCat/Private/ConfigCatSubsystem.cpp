@@ -14,6 +14,7 @@
 #include "ConfigCatLog.h"
 #include "ConfigCatLogger.h"
 #include "ConfigCatSettings.h"
+#include "HAL/PlatformFileManager.h"
 #include "Misc/LocalTimestampDirectoryVisitor.h"
 #include "Wrapper/ConfigCatEvaluationDetails.h"
 #include "Wrapper/ConfigCatUser.h"
@@ -417,21 +418,6 @@ void UConfigCatSubsystem::SetupClientSslOptions(ConfigCatOptions& Options)
 	if (GConfig->GetBool(TEXT("/Script/Engine.NetworkSettings"), TEXT("n.VerifyPeer"), bVerifyPeer, GEngineIni))
 	{
 		Options.sslOptions->verifySsl = {bVerifyPeer};
-	}
-
-	if (FParse::Param(FCommandLine::Get(), TEXT("NoCerts")))
-	{
-		return;
-	}
-
-	if (FParse::Param(FCommandLine::Get(), TEXT("WrongCerts")))
-	{
-		Options.sslOptions->extraSslCertificates.push_back("this/is/wrong/path.txt");
-		Options.sslOptions->extraSslCertificates.push_back("this/is/wrong/pathtoo.txr");
-		Options.sslOptions->extraSslCertificates.push_back("this/is/wrong/pathaswell.txt");
-		Options.sslOptions->extraSslCertificates.push_back("this/is/a/folder");
-		Options.sslOptions->extraSslCertificates.push_back("this/is/a/folder/too/");
-		return;
 	}
 
 #if PLATFORM_UNIX

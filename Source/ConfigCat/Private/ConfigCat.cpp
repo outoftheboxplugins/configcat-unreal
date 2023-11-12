@@ -2,6 +2,7 @@
 
 #include "ConfigCat.h"
 
+#include "Misc/Paths.h"
 #include "Modules/ModuleManager.h"
 
 IMPLEMENT_MODULE(FConfigCatModule, ConfigCat)
