@@ -62,7 +62,7 @@ public class ConfigCatCppSdk : ModuleRules
 		foreach (string File in Files)
 		{
 			PublicAdditionalLibraries.Add(Path.Combine(FolderPath, File));
-			Console.WriteLine(Name + " adding library:" + File);
+			Console.WriteLine(Name + " adding library: " + File);
 		}
 	}
 }
