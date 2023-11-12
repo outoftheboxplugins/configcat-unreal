@@ -12,6 +12,12 @@
 void UConfigCatEditorSubsystem::EnsureContentIsPackaged()
 {
 	FString FolderName = FConfigCatModule::GetContentFolder();
+	if (!FPaths::DirectoryExists(FolderName))
+	{
+		UE_LOG(LogConfigCat, Display, TEXT("ConfigCat folder doesn't exist. Skipping packaging."));
+		return;
+	}
+
 	FPaths::MakePathRelativeTo(FolderName, *FPaths::ProjectContentDir());
 
 	const FDirectoryPath ConfigCatContentFolder = {FolderName};
@@ -36,35 +42,9 @@ void UConfigCatEditorSubsystem::EnsureContentIsPackaged()
 	}
 }
 
-void UConfigCatEditorSubsystem::CopyLatestSslCertificate()
-{
-	IPlatformFile& PlatformFile = FPlatformFileManager::Get().GetPlatformFile();
-	const FString ConfigCatContent = FPaths::ConvertRelativePathToFull(FConfigCatModule::GetContentFolder());
-	const bool bFolderCreated = PlatformFile.CreateDirectoryTree(*ConfigCatContent);
-	if (!bFolderCreated)
-	{
-		UE_LOG(LogConfigCat, Warning, TEXT("Failed to create ConfigCat content folder."));
-		return;
-	}
-
-	FString PluginCertificate = IPluginManager::Get().FindPlugin(TEXT("ConfigCat"))->GetBaseDir() + TEXT("/Extras/certificates/globalsign-root-ca.pem");
-	PluginCertificate = FPaths::ConvertRelativePathToFull(PluginCertificate);
-
-	const FString ContentCertificate = ConfigCatContent + TEXT("/globalsign-root-ca.pem");
-	const bool bCopySuccess = PlatformFile.CopyFile(*ContentCertificate, *PluginCertificate);
-	if (!bCopySuccess)
-	{
-		UE_LOG(LogConfigCat, Warning, TEXT("Failed to copy SSL certificate to ConfigCat content folder."))
-	}
-
-	UE_LOG(LogConfigCat, Display, TEXT("Copied SSL certificate from %s to %s. Success: %s"), *PluginCertificate, *ContentCertificate);
-}
-
 void UConfigCatEditorSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 {
 	Super::Initialize(Collection);
 
 	EnsureContentIsPackaged();
-
-	CopyLatestSslCertificate();
 }

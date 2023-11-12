@@ -18,10 +18,6 @@ class UConfigCatEditorSubsystem : public UEditorSubsystem
 	 * @brief Ensures the ConfigCat folder from the project content directory is staged in the final build.
 	 */
 	void EnsureContentIsPackaged();
-	/**
-	 * @brief Copies the SSL certificate required by OpenSSL on certain platforms (e.g.: Android) to make HTTPS requests. 
-	 */
-	void CopyLatestSslCertificate();
 	// Begin UEditorSubsystem interface
 	virtual void Initialize(FSubsystemCollectionBase& Collection) override;
 	// End UEditorSubsystem interface
