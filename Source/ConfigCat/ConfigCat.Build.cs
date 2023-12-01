@@ -6,16 +6,19 @@ public class ConfigCat : ModuleRules
 {
 	public ConfigCat(ReadOnlyTargetRules Target) : base(Target)
 	{
-		PublicDependencyModuleNames.AddRange(new[] {
+		PublicDependencyModuleNames.AddRange(new[]
+		{
 			"Core",
 			"CoreUObject",
 			"DeveloperSettings",
-			"Projects", 
+			"Projects",
 			"Engine",
+			"HTTP"
 		});
-		
-		PrivateDependencyModuleNames.AddRange(new [] {
-			"ConfigCatCppSdk",
+
+		PrivateDependencyModuleNames.AddRange(new[]
+		{
+			"ConfigCatCppSdk"
 		});
 
 		PrivateIncludePaths.Add("ThirdParty");

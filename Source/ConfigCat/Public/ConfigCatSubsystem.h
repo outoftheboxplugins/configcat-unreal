@@ -29,7 +29,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnFlagEvaluatedBp, const FConfigCat
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnErrorBp, const FString&, Error);
 
 /**
- * Wrapper for accessing the configcat client. This subsystem is responsible for initializing and managing the client's lifecycle. 
+ * Wrapper for accessing the configcat client. This subsystem is responsible for initializing and managing the client's lifecycle.
  */
 UCLASS()
 class CONFIGCAT_API UConfigCatSubsystem : public UGameInstanceSubsystem
@@ -98,7 +98,7 @@ public:
 	UFUNCTION(BlueprintPure, Category = "ConfigCat")
 	bool GetKeyAndValue(const FString& VariationId, FString& OutKey, FConfigCatValue& OutValue) const;
 	/**
-	 * Gets the values of all feature flags or settings. 
+	 * Gets the values of all feature flags or settings.
 	 */
 	UFUNCTION(BlueprintPure, Category = "ConfigCat", meta = (AdvancedDisplay = "User", AutoCreateRefTerm = "User"))
 	TMap<FString, FConfigCatValue> GetAllValues(const FConfigCatUser& User = FConfigCatUser()) const;
@@ -184,11 +184,7 @@ private:
 	 */
 	void SetupClientHooks(configcat::ConfigCatOptions& Options);
 	/**
-	 * Sets up the ConfigCatOptions based on platform and plugin settings.
-	 */
-	void SetupClientSslOptions(configcat::ConfigCatOptions& Options);
-	/**
-	 *Sets up the ConfigCatOptions to use the appropriate overrides based on plugin settings. 
+	 *Sets up the ConfigCatOptions to use the appropriate overrides based on plugin settings.
 	 */
 	void SetupClientOverrides(configcat::ConfigCatOptions& Options);
 	/**

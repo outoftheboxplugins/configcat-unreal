@@ -11,11 +11,11 @@
 #include <Kismet/GameplayStatics.h>
 #include <Logging/LogVerbosity.h>
 #include <Misc/ConfigCacheIni.h>
-#include <Misc/LocalTimestampDirectoryVisitor.h>
 
 #include "ConfigCat.h"
 #include "ConfigCatLog.h"
 #include "ConfigCatLogger.h"
+#include "ConfigCatNetworkAdapter.h"
 #include "ConfigCatSettings.h"
 #include "Wrapper/ConfigCatEvaluationDetails.h"
 #include "Wrapper/ConfigCatUser.h"
@@ -84,6 +84,7 @@ double UConfigCatSubsystem::GetDoubleValue(const FString& Key, double DefaultVal
 
 FString UConfigCatSubsystem::GetStringValue(const FString& Key, const FString& DefaultValue, const FConfigCatUser& User) const
 {
+	UE_LOG(LogConfigCat, Display, TEXT("Request %s feature flag from configcat cpp-sdk"), *Key);
 	const std::string& StringDefaultValue = TCHAR_TO_UTF8(*DefaultValue);
 	const std::string& StringResult = GetValue(ConfigCatClient, Key, StringDefaultValue, User);
 	return UTF8_TO_TCHAR(StringResult.c_str());
@@ -286,7 +287,10 @@ void UConfigCatSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 	const UConfigCatSettings* ConfigCatSettings = GetDefault<UConfigCatSettings>();
 	const std::string& SdkKey = TCHAR_TO_UTF8(*ConfigCatSettings->SdkKey);
 
+	std::shared_ptr<ConfigCatNetworkAdapter> NetworkAdapter = std::make_shared<ConfigCatNetworkAdapter>();
+
 	ConfigCatOptions Options;
+	Options.httpSessionAdapter = NetworkAdapter;
 	Options.baseUrl = TCHAR_TO_UTF8(*ConfigCatSettings->BaseUrl);
 	Options.dataGovernance = ConfigCatSettings->DataGovernance == EDataGovernance::Global ? Global : EuOnly;
 	Options.connectTimeoutMs = ConfigCatSettings->ConnectionTimeout;
@@ -328,10 +332,15 @@ void UConfigCatSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 	Options.offline = ConfigCatSettings->bStartOffline;
 
 	SetupClientHooks(Options);
-	SetupClientSslOptions(Options);
 	SetupClientOverrides(Options);
 
 	ConfigCatClient = ConfigCatClient::get(SdkKey, &Options);
+
+	// Hack to ensure the config is ready because the http requests need to happen on the main thread
+	if (ConfigCatSettings->PollingMode == EPollingMode::Auto)
+	{
+		NetworkAdapter->WaitForNextRequest();
+	}
 }
 
 void UConfigCatSubsystem::Deinitialize()
@@ -409,44 +418,6 @@ void UConfigCatSubsystem::SetupClientHooks(ConfigCatOptions& Options)
 			}
 		}
 	);
-}
-
-void UConfigCatSubsystem::SetupClientSslOptions(ConfigCatOptions& Options)
-{
-	Options.sslOptions = std::make_shared<SslOptions>();
-
-	bool bVerifyPeer = true;
-	if (GConfig->GetBool(TEXT("/Script/Engine.NetworkSettings"), TEXT("n.VerifyPeer"), bVerifyPeer, GEngineIni))
-	{
-		Options.sslOptions->verifySsl = {bVerifyPeer};
-	}
-
-#if PLATFORM_UNIX
-	// Mirroring FUnixPlatformSslCertificateManager::BuildRootCertificateArray
-	static const TCHAR* KnownBundlePaths[] = {
-		TEXT("/etc/pki/tls/certs/ca-bundle.crt"),
-		TEXT("/etc/ssl/certs/ca-certificates.crt"),
-		TEXT("/etc/ssl/ca-bundle.pem"),
-	};
-
-	for (const TCHAR* CurrentBundle : KnownBundlePaths)
-	{
-		Options.sslOptions->extraSslCertificates.push_back(TCHAR_TO_UTF8(CurrentBundle));
-	}
-#endif
-
-#if PLATFORM_ANDROID
-	// Mirroring FAndroidPlatformSslCertificateManager::BuildRootCertificateArray
-	TArray<FString> DirectoriesToIgnoreAndNotRecurse;
-	FLocalTimestampDirectoryVisitor Visitor(FPlatformFileManager::Get().GetPlatformFile(), DirectoriesToIgnoreAndNotRecurse, DirectoriesToIgnoreAndNotRecurse, false);
-	IFileManager::Get().IterateDirectory(TEXT("/system/etc/security/cacerts"), Visitor);
-
-	for (const TPair<FString, FDateTime>& FileTimePair : Visitor.FileTimes)
-	{
-		const FString& CertFilename = FileTimePair.Key;
-		Options.sslOptions->extraSslCertificates.push_back(TCHAR_TO_UTF8(*CertFilename));
-	}
-#endif
 }
 
 void UConfigCatSubsystem::SetupClientOverrides(ConfigCatOptions& Options)

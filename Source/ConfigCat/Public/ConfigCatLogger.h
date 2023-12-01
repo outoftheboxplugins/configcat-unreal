@@ -13,5 +13,7 @@ public:
 	explicit FConfigCatLogger();
 	virtual ~FConfigCatLogger() = default;
 
+	// Begin configcat::ILogger interface
 	virtual void log(configcat::LogLevel level, const std::string& message) override;
+	// End configcat::ILogger interface
 };
