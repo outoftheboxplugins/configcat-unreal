@@ -100,7 +100,7 @@ public:
     void setOffline();
 
     // true when the SDK is configured not to initiate HTTP requests, otherwise false.
-    bool isOffline() const;
+    bool isOffline();
 
     // Gets the Hooks object for subscribing events.
     std::shared_ptr<Hooks> getHooks() { return hooks; }

@@ -68,7 +68,7 @@ Response ConfigCatNetworkAdapter::get(
 		constexpr float SleepInterval = 0.05f;
 		UE_LOG(LogConfigCat, Verbose, TEXT("Waiting for Get response (IsGameThread: %s). Retrying in %s second."), *LexToString(IsInGameThread()), *LexToString(SleepInterval));
 
-		// The cpp-sdk excepts this function to bock execution until the HTTP request is finished, therefore:
+		// The cpp-sdk excepts a sync request, so this function will block execution until the HTTP request is finished, therefore:
 		// - for requests running on the main thread (game thread), we need to manually tick the HTTP Module to process the request
 		// - for requests running on any other thread, we just wait until for the HTTP module to process the request
 		if (IsInGameThread())

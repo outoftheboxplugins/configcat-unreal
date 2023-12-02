@@ -2,7 +2,6 @@
 
 #include <string>
 #include <optional>
-#include <chrono>
 #include "config.h"
 
 namespace configcat {

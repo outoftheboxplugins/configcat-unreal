@@ -17,11 +17,6 @@
 
 namespace configcat {
 
-struct SslOptions {
-    std::vector<std::string> extraSslCertificates;
-    std::optional<bool> verifySsl;
-};
-
 // Hooks for events sent by `ConfigCatClient`.
 class Hooks {
 public:
@@ -149,9 +144,6 @@ struct ConfigCatOptions {
 
     /// Custom logger.
     std::shared_ptr<ILogger> logger;
-
-    /// Additional settings for the OpenSSL running the requests
-    std::shared_ptr<SslOptions> sslOptions;
 
     /// Indicates whether the SDK should be initialized in offline mode or not.
     bool offline = false;
