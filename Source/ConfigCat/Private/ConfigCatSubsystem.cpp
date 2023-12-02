@@ -335,12 +335,6 @@ void UConfigCatSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 	SetupClientOverrides(Options);
 
 	ConfigCatClient = ConfigCatClient::get(SdkKey, &Options);
-
-	// Hack to ensure the config is ready because the http requests need to happen on the main thread
-	if (ConfigCatSettings->PollingMode == EPollingMode::Auto)
-	{
-		NetworkAdapter->WaitForNextRequest();
-	}
 }
 
 void UConfigCatSubsystem::Deinitialize()

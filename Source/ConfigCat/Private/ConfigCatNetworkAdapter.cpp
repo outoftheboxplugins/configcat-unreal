@@ -10,24 +10,6 @@
 
 using namespace configcat;
 
-void ConfigCatNetworkAdapter::WaitForNextRequest()
-{
-	if (!ensureMsgf(IsInGameThread(), TEXT("Should only be called to ensure HTTP requests from the cpp-sdk which are not triggered from the main thread can block the main thread until completion.")))
-	{
-		return;
-	}
-
-	while (!GetRequest)
-	{
-		FPlatformProcess::Sleep(0.01f);
-	}
-	while (GetRequest->GetStatus() == EHttpRequestStatus::Processing)
-	{
-		FPlatformProcess::Sleep(0.01f);
-		FHttpModule::Get().GetHttpManager().Tick(0.01f);
-	}
-}
-
 bool ConfigCatNetworkAdapter::init(const HttpSessionObserver* httpSessionObserver, uint32_t connectTimeoutMs, uint32_t readTimeoutMs)
 {
 	UE_LOG(LogConfigCat, Verbose, TEXT("Network Adapter initialized."));
@@ -78,6 +60,7 @@ Response ConfigCatNetworkAdapter::get(
 	}
 	*/
 
+	GetRequest->SetDelegateThreadPolicy(EHttpRequestDelegateThreadPolicy::CompleteOnHttpThread);
 	GetRequest->ProcessRequest();
 
 	while (GetRequest->GetStatus() == EHttpRequestStatus::Processing)

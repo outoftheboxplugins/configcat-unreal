@@ -14,8 +14,6 @@ public:
 	explicit ConfigCatNetworkAdapter() = default;
 	virtual ~ConfigCatNetworkAdapter() override = default;
 
-	void WaitForNextRequest();
-
 private:
 	// Begin configcat::HttpSessionAdapter interface
 	virtual bool init(const configcat::HttpSessionObserver* httpSessionObserver, uint32_t connectTimeoutMs, uint32_t readTimeoutMs) override;
