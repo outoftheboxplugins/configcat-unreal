@@ -28,8 +28,8 @@ jobs:
 
       - name: Copy binaries
         run: |
-          cp ${{ github.workspace }}/build/vcpkg/installed/lib/libconfigcat.a ${{ github.workspace }}/Plugins/configcat-unreal/Source/ThirdParty/Binaries/Linux/x64-linux-unreal/libconfigcat.a
-          cp ${{ github.workspace }}/build/vcpkg/installed/lib/libhash-library.a ${{ github.workspace }}/Plugins/configcat-unreal/Source/ThirdParty/Binaries/Linux/x64-linux-unreal/libhash-library.a
+          cp ${{ github.workspace }}/build/vcpkg/installed/lib/x64-linux-unreal/libconfigcat.a ${{ github.workspace }}/Plugins/configcat-unreal/Source/ThirdParty/Binaries/Linux/x64-linux-unreal/libconfigcat.a
+          cp ${{ github.workspace }}/build/vcpkg/installed/lib/x64-linux-unreal/libhash-library.a ${{ github.workspace }}/Plugins/configcat-unreal/Source/ThirdParty/Binaries/Linux/x64-linux-unreal/libhash-library.a
 
           rm -r ./build/*
 
