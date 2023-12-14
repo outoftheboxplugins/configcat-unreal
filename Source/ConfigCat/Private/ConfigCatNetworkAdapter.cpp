@@ -91,7 +91,7 @@ Response ConfigCatNetworkAdapter::get(
 	Response.text = TCHAR_TO_UTF8(*GetResponse->GetContentAsString());
 	Response.statusCode = GetResponse->GetResponseCode();
 
-	for (const FString Header : GetResponse->GetAllHeaders())
+	for (const FString& Header : GetResponse->GetAllHeaders())
 	{
 		FString HeaderKey;
 		FString HeaderValue;
