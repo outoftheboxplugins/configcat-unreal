@@ -5,6 +5,7 @@
 #include <HttpManager.h>
 #include <HttpModule.h>
 #include <Interfaces/IHttpResponse.h>
+#include <Misc/ScopeExit.h>
 
 #include "ConfigCatLog.h"
 
