@@ -16,7 +16,7 @@ public:
 
 private:
 	// Begin configcat::HttpSessionAdapter interface
-	virtual bool init(const configcat::HttpSessionObserver* httpSessionObserver, uint32_t connectTimeoutMs, uint32_t readTimeoutMs) override;
+	virtual bool init(uint32_t connectTimeoutMs, uint32_t readTimeoutMs) override;
 	virtual configcat::Response
 	get(const std::string& url,
 		const std::map<std::string, std::string>& header,

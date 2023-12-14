@@ -10,7 +10,7 @@
 
 using namespace configcat;
 
-bool ConfigCatNetworkAdapter::init(const HttpSessionObserver* httpSessionObserver, uint32_t connectTimeoutMs, uint32_t readTimeoutMs)
+bool ConfigCatNetworkAdapter::init(uint32_t connectTimeoutMs, uint32_t readTimeoutMs)
 {
 	UE_LOG(LogConfigCat, Verbose, TEXT("Network Adapter initialized."));
 
