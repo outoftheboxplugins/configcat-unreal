@@ -11,4 +11,6 @@ on:
 jobs:
   plugin-ci:
     uses:  outoftheboxplugins/BuildMachines/.github/workflows/compile-plugin.yml@master
+    with:
+      plugin_code: ""
     secrets: inherit
