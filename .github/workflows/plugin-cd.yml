@@ -5,8 +5,6 @@ on:
     tags:
       - 'v*'
 
-# Note: MacOS & iOS are the only targets that need libcurl as well. Since UE 5.3.2 the built-in curl doesn't have the secure transport enabled and cannot access the system's SSL certs. To work around this, we will link our own built via vpckg.
-
 jobs:
   build-win64:
     runs-on: windows-latest
