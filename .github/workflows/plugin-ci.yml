@@ -28,6 +28,7 @@ jobs:
 
       - name: Copy binaries
         run: |
+          mkdir -p ${{ github.workspace }}/Plugins/configcat-unreal/Source/ThirdParty/Binaries/Linux/x64-linux-unreal/
           cp ${{ github.workspace }}/build/vcpkg/installed/x64-linux-unreal/lib/libconfigcat.a ${{ github.workspace }}/Plugins/configcat-unreal/Source/ThirdParty/Binaries/Linux/x64-linux-unreal/libconfigcat.a
           cp ${{ github.workspace }}/build/vcpkg/installed/x64-linux-unreal/lib/libhash-library.a ${{ github.workspace }}/Plugins/configcat-unreal/Source/ThirdParty/Binaries/Linux/x64-linux-unreal/libhash-library.a
 
