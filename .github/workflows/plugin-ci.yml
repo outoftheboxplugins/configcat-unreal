@@ -14,8 +14,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-        with:
-          path: unreal-sdk
 
       - name: Install via vcpkg
         run: |
@@ -30,13 +28,15 @@ jobs:
 
       - name: Copy binaries
         run: |
-          cp ./build/vcpkg/installed/unreal-sdk/lib/libconfigcat.a ${{ github.workspace }}/unreal-sdk/Plugins/configcat-unreal/Source/ThirdParty/Binaries/Linux/x64-linux-unreal/libconfigcat.a
-          cp ./build/vcpkg/installed/unreal-sdk/lib/libhash-library.a ${{ github.workspace }}/unreal-sdk/Plugins/configcat-unreal/Source/ThirdParty/Binaries/Linux/x64-linux-unreal/libhash-library.a
+          cp ./build/vcpkg/installed/lib/libconfigcat.a ${{ github.workspace }}/Plugins/configcat-unreal/Source/ThirdParty/Binaries/Linux/x64-linux-unreal/libconfigcat.a
+          cp ./build/vcpkg/installed/lib/libhash-library.a ${{ github.workspace }}/Plugins/configcat-unreal/Source/ThirdParty/Binaries/Linux/x64-linux-unreal/libhash-library.a
+
+          rm -r ./build/*
 
       - uses: actions/upload-artifact@v4
         with:
           name: configcat-sdk
-          path: ${{ github.workspace }}/unreal-sdk
+          path: ${{ github.workspace }}
 
   plugin-ci:
     uses:  outoftheboxplugins/BuildMachines/.github/workflows/compile-plugin.yml@master
