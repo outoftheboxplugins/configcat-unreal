@@ -64,7 +64,6 @@ jobs:
           path: |
             ./build/vcpkg/installed/*/lib/libconfigcat.a
             ./build/vcpkg/installed/*/lib/libhash-library.a
-            ./build/vcpkg/installed/*/lib/libcurl.a
 
   build-ios:
     runs-on: macos-latest
@@ -84,7 +83,6 @@ jobs:
           path: |
             ./build/vcpkg/installed/*/lib/libconfigcat.a
             ./build/vcpkg/installed/*/lib/libhash-library.a
-            ./build/vcpkg/installed/*/lib/libcurl.a
 
   build-linux:
     runs-on: ubuntu-latest
