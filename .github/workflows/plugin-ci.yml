@@ -40,6 +40,7 @@ jobs:
 
   plugin-ci:
     uses:  outoftheboxplugins/BuildMachines/.github/workflows/compile-plugin.yml@master
+    needs: build-linux
     with:
       plugin_code: configcat-sdk
     secrets: inherit
