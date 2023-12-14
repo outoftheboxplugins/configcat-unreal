@@ -9,8 +9,19 @@ on:
       - main
 
 jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: configcat-sdk
+          path: ${{ github.workspace }}
+
   plugin-ci:
     uses:  outoftheboxplugins/BuildMachines/.github/workflows/compile-plugin.yml@master
     with:
-      plugin_code: ''
+      plugin_code: configcat-sdk
     secrets: inherit
