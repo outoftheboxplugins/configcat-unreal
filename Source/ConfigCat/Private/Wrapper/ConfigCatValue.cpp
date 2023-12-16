@@ -26,7 +26,7 @@ bool FConfigCatValue::HasBooleanValue() const
 
 bool FConfigCatValue::HasStringValue() const
 {
-	return Value && std::holds_alternative<bool>(*Value);
+	return Value && std::holds_alternative<std::string>(*Value);
 }
 
 bool FConfigCatValue::HasIntegerValue() const
