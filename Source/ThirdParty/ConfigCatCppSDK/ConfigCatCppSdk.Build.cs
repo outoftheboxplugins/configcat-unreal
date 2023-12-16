@@ -12,44 +12,33 @@ public class ConfigCatCppSdk : ModuleRules
 	{
 		Type = ModuleType.External;
 
-		AddEngineThirdPartyPrivateStaticDependencies(Target, "OpenSSL");
-
 		if (Target.Platform == UnrealTargetPlatform.Win64)
 		{
-			string Folder = Path.Combine(ModuleDirectory, "Binaries", "Win64", "x64-windows");
-			AddPrecompiledLibraries(Folder, "*.lib");
+			AddPrecompiledLibraries(Path.Combine(ModuleDirectory, "Binaries", "Win64", "x64-windows"), "*.lib");
 		}
 		else if (Target.Platform == UnrealTargetPlatform.Mac)
 		{ 
-			PublicFrameworks.Add("Security");
-			PublicFrameworks.Add("SystemConfiguration");
-
 			if(Target.Architecture == UnrealArch.Arm64)
 			{
 				//TODO: Change to match other naming convention when GitHub adds arm-64 macos runners
-				string Folder = Path.Combine(ModuleDirectory, "Binaries", "Mac", "Arm64");
-				AddPrecompiledLibraries(Folder, "*.a");
+				AddPrecompiledLibraries(Path.Combine(ModuleDirectory, "Binaries", "Mac", "Arm64"), "*.a");
 			}
 			else
 			{
-				string Folder = Path.Combine(ModuleDirectory, "Binaries", "Mac", "x64-osx");
-				AddPrecompiledLibraries(Folder, "*.a");
+				AddPrecompiledLibraries(Path.Combine(ModuleDirectory, "Binaries", "Mac", "x64-osx"), "*.a");
 			}
 		}
 		else if (Target.Platform == UnrealTargetPlatform.Linux)
 		{
-			string Folder = Path.Combine(ModuleDirectory, "Binaries", "Linux", "x64-linux-unreal");
-			AddPrecompiledLibraries(Folder, "*.a");
+			AddPrecompiledLibraries(Path.Combine(ModuleDirectory, "Binaries", "Linux", "x64-linux-unreal"), "*.a");
 		}
 		else if (Target.Platform == UnrealTargetPlatform.Android)
 		{
-			string Folder = Path.Combine(ModuleDirectory, "Binaries", "Android", "arm64-android");
-			AddPrecompiledLibraries(Folder, "*.a");
+			AddPrecompiledLibraries(Path.Combine(ModuleDirectory, "Binaries", "Android", "arm64-android"), "*.a");
 		}
 		else if(Target.Platform == UnrealTargetPlatform.IOS)
 		{
-			string Folder = Path.Combine(ModuleDirectory, "Binaries", "iOS", "arm64-ios-unreal");
-			AddPrecompiledLibraries(Folder, "*.a");
+			AddPrecompiledLibraries(Path.Combine(ModuleDirectory, "Binaries", "iOS", "arm64-ios-unreal"), "*.a");
 		}
 	}
 

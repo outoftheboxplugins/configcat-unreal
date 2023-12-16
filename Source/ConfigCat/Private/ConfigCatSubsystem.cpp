@@ -387,8 +387,6 @@ void UConfigCatSubsystem::SetupClientHooks(ConfigCatOptions& Options)
 			if (WeakThis.IsValid())
 			{
 				FConfigCatConfig NewConfig;
-
-				// TODO: Check if Config will be ever nullptr
 				if (Config)
 				{
 					for (const std::pair<const std::string, Setting>& Setting : *Config)
