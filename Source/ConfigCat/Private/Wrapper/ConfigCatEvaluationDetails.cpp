@@ -50,10 +50,8 @@ FDateTime FConfigCatEvaluationDetails::GetFetchTime() const
 {
 	if (EvaluationDetails)
 	{
-		// TODO: Find out what the fetch time is measured in so we ensure it properly transforms into FDateTime
-		const auto TimeSinceEpoch = EvaluationDetails->fetchTime.time_since_epoch();
-		const auto MillisecondsSinceEpoch = std::chrono::duration_cast<std::chrono::milliseconds>(TimeSinceEpoch).count();
-		return FDateTime(MillisecondsSinceEpoch);
+		const auto TimeSinceEpoch = EvaluationDetails->fetchTime.time_since_epoch().count();
+		return FDateTime::FromUnixTimestampDecimal(TimeSinceEpoch);
 	}
 
 	return {};

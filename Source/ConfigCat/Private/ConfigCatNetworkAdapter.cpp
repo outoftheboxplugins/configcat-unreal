@@ -33,7 +33,7 @@ Response ConfigCatNetworkAdapter::get(
 
 	GetRequest->SetVerb(TEXT("GET"));
 
-	// TODO: Check if we can set each of the 2 separately
+	// We cannot set different timeout durations for connection & read independently, so we combine their duration and set it as the whole request timeout
 	const float Timeout = (ConnectionTimeout + ReadTimeout) / 1000.0f;
 	GetRequest->SetTimeout(Timeout);
 
@@ -47,19 +47,10 @@ Response ConfigCatNetworkAdapter::get(
 	const FString Url = UTF8_TO_TCHAR(url.c_str());
 	GetRequest->SetURL(Url);
 
-	// TODO: Check if we can set up any proxy
-	/*
-	const std::string protocol = url.substr(0, url.find(':'));
-	if (proxies.contains(protocol))
+	if (proxies.empty() != 0)
 	{
-		curl_easy_setopt(curl, CURLOPT_PROXY, proxies.at(protocol).c_str());
-		if (proxyAuthentications.contains(protocol))
-		{
-			curl_easy_setopt(curl, CURLOPT_PROXYUSERNAME, proxyAuthentications.at(protocol).user.c_str());
-			curl_easy_setopt(curl, CURLOPT_PROXYPASSWORD, proxyAuthentications.at(protocol).password.c_str());
-		}
+		UE_LOG(LogConfigCat, Warning, TEXT("Unreal Engine doesn't have a built-in proxy for HTTPS requests, ignoring proxies."));
 	}
-	*/
 
 	GetRequest->SetDelegateThreadPolicy(EHttpRequestDelegateThreadPolicy::CompleteOnHttpThread);
 	GetRequest->ProcessRequest();
