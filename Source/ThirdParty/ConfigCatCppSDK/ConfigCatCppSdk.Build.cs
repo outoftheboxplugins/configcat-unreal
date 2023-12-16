@@ -20,12 +20,11 @@ public class ConfigCatCppSdk : ModuleRules
 		{ 
 			if(Target.Architecture == UnrealArch.Arm64)
 			{
-				//TODO: Change to match other naming convention when GitHub adds arm-64 macos runners
-				AddPrecompiledLibraries(Path.Combine(ModuleDirectory, "Binaries", "Mac", "Arm64"), "*.a");
+				AddPrecompiledLibraries(Path.Combine(ModuleDirectory, "Binaries", "MacOS", "arm64-osx"), "*.a");
 			}
 			else
 			{
-				AddPrecompiledLibraries(Path.Combine(ModuleDirectory, "Binaries", "Mac", "x64-osx"), "*.a");
+				AddPrecompiledLibraries(Path.Combine(ModuleDirectory, "Binaries", "MacOS", "x64-osx"), "*.a");
 			}
 		}
 		else if (Target.Platform == UnrealTargetPlatform.Linux)
