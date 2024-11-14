@@ -144,7 +144,7 @@ jobs:
           export CC=clang
           export CXX=clang++
 
-          ./build/vcpkg/vcpkg install configcat[core,sha] --triplet arm64-linux-unreal --overlay-triplets "$GITHUB_WORKSPACE/Extras/triplets"
+          ./build/vcpkg/vcpkg install configcat[core,sha] --triplet arm64-linux-unreal --overlay-triplets "$GITHUB_WORKSPACE/Extras/triplets" || true
 
           cat  /home/runner/work/configcat-unreal/configcat-unreal/build/vcpkg/buildtrees/hash-library/install-arm64-linux-unreal-rel-out.log
 
