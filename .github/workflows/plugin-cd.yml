@@ -56,6 +56,8 @@ jobs:
           ./build/vcpkg/bootstrap-vcpkg.bat
           ./build/vcpkg/vcpkg install configcat[core,sha] --triplet arm64-android
 
+          cat  /home/runner/work/configcat-unreal/configcat-unreal/build/vcpkg/buildtrees/hash-library/install-arm64-linux-unreal-rel-out.log
+
       - uses: actions/upload-artifact@v3
         with:
           name: Android
