@@ -137,7 +137,7 @@ jobs:
       - name: Install via vcpkg
         run: |
           sudo apt update
-          sudo apt install gcc make
+          sudo apt install gcc-6
 
           export glibc_install="$(pwd)/glibc/build/install"
 
