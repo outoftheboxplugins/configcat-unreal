@@ -137,18 +137,7 @@ jobs:
       - name: Install via vcpkg
         run: |
           sudo apt-get update
-          sudo apt-get install gcc-arm-linux-gnueabihf=4:9.3.0-1ubuntu2
-
-          export glibc_install="$(pwd)/glibc/build/install"
-
-          git clone git://sourceware.org/git/glibc.git
-          cd glibc
-          git checkout glibc-2.17
-          mkdir build
-          cd build
-          ../configure --prefix "$glibc_install"
-          make -j `nproc`
-          make install -j `nproc`
+          sudo apt-get install libc++-dev\
 
           git clone https://github.com/microsoft/vcpkg build/vcpkg
           git -C build/vcpkg checkout ${{ env.VCPKG_COMMIT_HASH }}
