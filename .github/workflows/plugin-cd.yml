@@ -136,7 +136,8 @@ jobs:
 
       - name: Install via vcpkg
         run: |
-          sudo apt-get install libc6=2.17
+          sudo apt-get update
+          sudo apt-get install libc6=2.17-0ubuntu4
 
           git clone https://github.com/microsoft/vcpkg build/vcpkg
           git -C build/vcpkg checkout ${{ env.VCPKG_COMMIT_HASH }}
