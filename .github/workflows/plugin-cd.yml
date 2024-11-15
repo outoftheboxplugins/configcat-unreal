@@ -136,12 +136,15 @@ jobs:
 
       - name: Install via vcpkg
         run: |   
-          ldd --version
-
-          sudo apt-get update
-          sudo apt-get install libc++-dev
-
-          ldd --version
+          mkdir ~/glibc-install; cd ~/glibc-install
+          wget http://ftp.gnu.org/gnu/glibc/glibc-2.17.tar.gz
+          tar -zxvf glibc-2.17.tar.gz
+          cd glibc-2.17
+          mkdir build
+          cd build
+          ../configure --prefix=/home/myself/opt/glibc-2.17
+          make -j2
+          make install
 
           git clone https://github.com/microsoft/vcpkg build/vcpkg
           git -C build/vcpkg checkout ${{ env.VCPKG_COMMIT_HASH }}
