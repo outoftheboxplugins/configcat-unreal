@@ -4,6 +4,8 @@ set(VCPKG_LIBRARY_LINKAGE static)
 
 set(VCPKG_CMAKE_SYSTEM_NAME Linux)
 
+set(CMAKE_CXX_STANDARD 17)
+
 set(VCPKG_CXX_FLAGS_RELEASE "-stdlib=libc++ -mno-outline-atomics")
 set(VCPKG_C_FLAGS_RELEASE "-stdlib=libc++ -mno-outline-atomics")
 set(VCPKG_LINKER_FLAGS_RELEASE "-stdlib=libc++ -mno-outline-atomics")
