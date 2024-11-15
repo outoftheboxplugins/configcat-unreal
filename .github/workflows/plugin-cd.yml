@@ -136,10 +136,12 @@ jobs:
 
       - name: Install via vcpkg
         run: |   
+          ldd --version
+
           sudo apt-get update
           sudo apt-get install libc++-dev
 
-          /lib/libc.so.6
+          ldd --version
 
           git clone https://github.com/microsoft/vcpkg build/vcpkg
           git -C build/vcpkg checkout ${{ env.VCPKG_COMMIT_HASH }}
