@@ -136,8 +136,10 @@ jobs:
 
       - name: Install via vcpkg
         run: |
+          sudo add-apt-repository 'deb http://archive.ubuntu.com/ubuntu/ trusty main'
+          sudo add-apt-repository 'deb http://archive.ubuntu.com/ubuntu/ trusty universe'
           sudo apt update
-          sudo apt install gcc-6
+          sudo apt install gcc-4.7
 
           export glibc_install="$(pwd)/glibc/build/install"
 
