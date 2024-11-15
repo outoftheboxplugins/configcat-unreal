@@ -136,7 +136,8 @@ jobs:
 
       - name: Install via vcpkg
         run: |
-          apt-get install gcc-arm-linux-gnueabihf=4:9.3.0-1ubuntu2
+          sudo apt-get update
+          sudo apt-get install gcc-arm-linux-gnueabihf=4:9.3.0-1ubuntu2
 
           export glibc_install="$(pwd)/glibc/build/install"
 
