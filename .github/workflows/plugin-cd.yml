@@ -136,8 +136,14 @@ jobs:
 
       - name: Install via vcpkg
         run: |
+          ldd --version
+          find /lib -iname 'libc*.so'
+          
           sudo apt-get update
-          sudo apt-get install libc6=2.17-0ubuntu4
+          sudo apt-get install libc++-dev\
+          
+          ldd --version
+          find /lib -iname 'libc*.so'
 
           git clone https://github.com/microsoft/vcpkg build/vcpkg
           git -C build/vcpkg checkout ${{ env.VCPKG_COMMIT_HASH }}
