@@ -136,13 +136,13 @@ jobs:
 
       - name: Install via vcpkg
         run: |
-          sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 40976EAF437D05B5
-          sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3B4FE6ACC0B21F32
+          #sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 40976EAF437D05B5
+          #sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3B4FE6ACC0B21F32
 
-          sudo add-apt-repository 'deb http://archive.ubuntu.com/ubuntu/ trusty main'
-          sudo add-apt-repository 'deb http://archive.ubuntu.com/ubuntu/ trusty universe'
+          #sudo add-apt-repository 'deb http://archive.ubuntu.com/ubuntu/ trusty main'
+          #sudo add-apt-repository 'deb http://archive.ubuntu.com/ubuntu/ trusty universe'
           sudo apt update
-          sudo apt install gcc-4.7
+          sudo apt install gcc-4.8
 
           export glibc_install="$(pwd)/glibc/build/install"
 
