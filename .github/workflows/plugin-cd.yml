@@ -135,9 +135,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Install via vcpkg
-        run: |
-          /lib/libc.so.6
-          
+        run: |   
           sudo apt-get update
           sudo apt-get install libc++-dev
 
